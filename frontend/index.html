@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a43">
+    <title>EVSU-OC | Enrollment Administration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <main id="auth-screen" class="auth-shell">
+      <section class="auth-brand-panel">
+        <div class="brand-lockup">
+          <div class="brand-mark">E</div>
+          <div>
+            <div class="brand-name">EVSU-OC</div>
+            <div class="brand-caption">STUDENT ENROLLMENT SYSTEM</div>
+          </div>
+        </div>
+        <div class="auth-message">
+          <span class="eyebrow">ADMINISTRATION PORTAL</span>
+          <h1>Manage enrollment with clarity.</h1>
+          <p>A secure workspace for administrators, account access, and system activity.</p>
+        </div>
+        <div class="brand-footer"><i class="bi bi-shield-check"></i> Authorized administrator access</div>
+      </section>
+      <section class="auth-form-panel">
+        <div class="auth-form-wrap">
+          <div class="mobile-brand brand-lockup">
+            <div class="brand-mark">E</div>
+            <div><div class="brand-name">EVSU-OC</div><div class="brand-caption">ENROLLMENT SYSTEM</div></div>
+          </div>
+          <span class="eyebrow">WELCOME BACK</span>
+          <h2 id="auth-title">Administrator sign in</h2>
+          <p class="muted-copy" id="auth-description">Enter your administrator credentials to continue.</p>
+          <div id="auth-alert" class="alert d-none" role="alert"></div>
+          <form id="login-form" novalidate>
+            <label for="login-email" class="form-label">Email address</label>
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input id="login-email" class="form-control" type="email" autocomplete="username" placeholder="name@evsu.edu.ph" required>
+            </div>
+            <label for="login-password" class="form-label">Password</label>
+            <div class="input-group input-group-lg mb-4">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input id="login-password" class="form-control" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+              <button class="input-group-text password-toggle" type="button" data-password-target="login-password" aria-label="Show password"><i class="bi bi-eye"></i></button>
+            </div>
+            <button id="login-submit" class="btn btn-primary btn-lg w-100" type="submit">
+              <span class="button-label">Sign in</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <div id="app-shell" class="app-shell d-none">
+      <aside id="sidebar" class="sidebar">
+        <a class="sidebar-brand" href="#" aria-label="EVSU-OC home">
+          <span class="brand-mark">E</span>
+          <span><span class="brand-name">EVSU-OC</span><span class="brand-caption">ADMIN CONSOLE</span></span>
+        </a>
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <button id="overview-nav-link" class="nav-link active" data-page="overview"><i class="bi bi-grid-1x2"></i><span>Overview</span></button>
+          <button id="admins-nav-link" class="nav-link" data-page="admins"><i class="bi bi-people"></i><span>Administrators</span></button>
+          <button id="faculty-nav-link" class="nav-link d-none" data-page="faculty"><i class="bi bi-person-workspace"></i><span>Faculty</span></button>
+          <button id="subjects-nav-link" class="nav-link" data-page="subjects"><i class="bi bi-journal-bookmark"></i><span>Subjects</span></button>
+          <button id="sections-nav-link" class="nav-link d-none" data-page="sections"><i class="bi bi-diagram-3"></i><span>Sections</span></button>
+          <button id="class-scheduling-nav-link" class="nav-link d-none" data-page="class-scheduling"><i class="bi bi-calendar-week"></i><span id="class-scheduling-nav-label">Class scheduling</span></button>
+          <button id="enrollment-config-nav-link" class="nav-link d-none" data-page="enrollment-config"><i class="bi bi-sliders"></i><span>Enrollment configuration</span></button>
+          <button id="audit-nav-link" class="nav-link" data-page="audit"><i class="bi bi-clock-history"></i><span>Audit activity</span></button>
+          <button id="profile-nav-link" class="nav-link" data-page="profile"><i class="bi bi-person-gear"></i><span>My account</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-api-state"><span class="status-dot"></span><span id="sidebar-api-status">Checking API</span></div>
+          <button id="logout-button" class="logout-button"><i class="bi bi-box-arrow-left"></i><span>Sign out</span></button>
+        </div>
+      </aside>
+
+      <div class="main-column">
+        <header class="topbar">
+          <button id="sidebar-toggle" class="icon-button mobile-menu" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+          <div class="breadcrumb-line"><span>EVSU-OC</span><i class="bi bi-chevron-right"></i><strong id="page-breadcrumb">Overview</strong></div>
+          <div class="topbar-right">
+            <div class="api-indicator"><span class="status-dot"></span><span id="topbar-api-status">API connected</span></div>
+            <div class="topbar-divider"></div>
+            <div class="user-chip">
+              <div id="user-avatar" class="avatar">A</div>
+              <div class="user-chip-copy"><strong id="topbar-user-name">Administrator</strong><span id="topbar-user-role">Admin</span></div>
+              <button class="icon-button" data-page="profile" aria-label="Open account"><i class="bi bi-chevron-down"></i></button>
+            </div>
+          </div>
+        </header>
+
+        <main class="page-content">
+          <div id="page-alert" class="alert d-none" role="alert"></div>
+
+          <section id="page-overview" class="page-section">
+            <div class="page-heading">
+              <div><span class="eyebrow">SYSTEM SNAPSHOT</span><h1>Good to see you, <span id="welcome-name">Admin</span></h1><p>Here’s what’s happening in your administration portal.</p></div>
+              <button class="btn btn-outline-secondary" id="refresh-overview"><i class="bi bi-arrow-clockwise me-2"></i>Refresh data</button>
+            </div>
+            <div class="row g-3 metric-grid">
+              <div class="col-12 col-md-4"><article class="metric-card"><div class="metric-top"><span>Total administrators</span><span class="metric-icon blue"><i class="bi bi-people"></i></span></div><div id="metric-admins" class="metric-value">—</div><div class="metric-foot">Accounts registered in the system</div></article></div>
+              <div class="col-12 col-md-4"><article class="metric-card"><div class="metric-top"><span>Active accounts</span><span class="metric-icon green"><i class="bi bi-person-check"></i></span></div><div id="metric-active" class="metric-value">—</div><div class="metric-foot">Administrators with access enabled</div></article></div>
+              <div class="col-12 col-md-4"><article class="metric-card"><div class="metric-top"><span>Recent activities</span><span class="metric-icon amber"><i class="bi bi-activity"></i></span></div><div id="metric-activity" class="metric-value">—</div><div class="metric-foot">Latest audit records available</div></article></div>
+            </div>
+            <div class="row g-4 overview-panels">
+              <div class="col-12 col-xl-7"><section class="content-card h-100">
+                <div class="card-heading"><div><h2>Administrator accounts</h2><p>Up to 5 most recently added accounts</p></div><button class="text-action" data-page="admins">View all <i class="bi bi-arrow-up-right"></i></button></div>
+                <div id="overview-admins" class="compact-list"><div class="loading-state"><span class="spinner-border spinner-border-sm"></span> Loading accounts</div></div>
+              </section></div>
+              <div class="col-12 col-xl-5"><section class="content-card h-100">
+                <div class="card-heading"><div><h2>Recent activity</h2><p>Up to 5 latest actions recorded by the system</p></div><button class="text-action" data-page="audit">View all <i class="bi bi-arrow-up-right"></i></button></div>
+                <div id="overview-audit" class="activity-list"><div class="loading-state"><span class="spinner-border spinner-border-sm"></span> Loading activity</div></div>
+              </section></div>
+            </div>
+          </section>
+
+          <section id="page-admins" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">ACCESS CONTROL</span><h1>Administrators</h1><p>Review administrator accounts and manage access.</p></div>
+              <div class="d-flex flex-wrap gap-2">
+                <button id="create-admin-button" class="btn btn-primary d-none"><i class="bi bi-person-plus me-2"></i>Add administrator</button>
+                <button id="admins-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+              </div>
+            </div>
+            <section class="content-card table-card">
+              <div class="table-toolbar"><div><h2>All accounts</h2><p id="admin-result-count">Loading administrator accounts</p></div><div class="filter-control"><label for="admin-status-filter" class="visually-hidden">Filter accounts by status</label><select id="admin-status-filter" class="form-select"><option value="all">All statuses</option><option value="true">Active</option><option value="false">Inactive</option></select></div></div>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Administrator</th><th>ID number</th><th>Email address</th><th>Role</th><th>Status</th><th>Created</th><th id="admin-actions-heading" class="d-none"><span class="visually-hidden">Actions</span></th></tr></thead><tbody id="admin-table-body"></tbody></table></div>
+              <div id="admin-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-people"></i></div><h3>No administrators found</h3><p>There are no accounts matching this filter.</p></div>
+            </section>
+          </section>
+
+          <section id="page-faculty" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">FACULTY ACCESS</span><h1>Department heads &amp; instructors</h1><p>Manage faculty accounts and access status.</p></div>
+              <div class="d-flex flex-wrap gap-2">
+                <button id="create-faculty-button" class="btn btn-primary"><i class="bi bi-person-plus me-2"></i>Add faculty</button>
+                <button id="faculty-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+              </div>
+            </div>
+            <section class="content-card table-card">
+              <div class="table-toolbar">
+                <div><h2>Faculty accounts</h2><p id="faculty-result-count">Loading faculty accounts</p></div>
+                <div class="d-flex flex-wrap gap-2">
+                  <label for="faculty-role-filter" class="visually-hidden">Filter faculty by role</label>
+                  <select id="faculty-role-filter" class="form-select"><option value="all">All roles</option><option value="department_head">Department head</option><option value="instructor">Instructor</option></select>
+                  <label for="faculty-status-filter" class="visually-hidden">Filter faculty by status</label>
+                  <select id="faculty-status-filter" class="form-select"><option value="all">All statuses</option><option value="true">Active</option><option value="false">Inactive</option></select>
+                </div>
+              </div>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Faculty member</th><th>ID number</th><th>Email address</th><th>Role</th><th>Status</th><th>Created</th><th><span class="visually-hidden">Actions</span></th></tr></thead><tbody id="faculty-table-body"></tbody></table></div>
+              <div id="faculty-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-person-workspace"></i></div><h3>No faculty found</h3><p>There are no faculty accounts matching these filters.</p></div>
+            </section>
+          </section>
+
+          <section id="page-subjects" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">CURRICULUM</span><h1>Subjects</h1><p>Browse curriculum subjects by year level and semester.</p></div>
+              <div class="d-flex flex-wrap gap-2">
+                <button id="create-subject-button" class="btn btn-primary d-none"><i class="bi bi-plus-lg me-2"></i>Add subject</button>
+                <button id="subjects-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+              </div>
+            </div>
+            <section class="content-card table-card">
+              <div class="table-toolbar">
+                <div><h2>Curriculum subjects</h2><p id="subject-result-count">Loading subjects</p></div>
+                <div class="d-flex flex-wrap gap-2">
+                  <label for="subject-year-filter" class="visually-hidden">Filter subjects by year level</label>
+                  <select id="subject-year-filter" class="form-select"><option value="all">All year levels</option><option value="1">First year</option><option value="2">Second year</option><option value="3">Third year</option><option value="4">Fourth year</option></select>
+                  <label for="subject-semester-filter" class="visually-hidden">Filter subjects by semester</label>
+                  <select id="subject-semester-filter" class="form-select"><option value="all">All semesters</option><option value="1">First semester</option><option value="2">Second semester</option><option value="3">Midyear</option></select>
+                </div>
+              </div>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Course no.</th><th>Subject title</th><th>Lecture</th><th>Laboratory</th><th>Total units</th><th>Prerequisite</th><th>Year</th><th>Semester</th><th id="subject-actions-heading" class="d-none"><span class="visually-hidden">Actions</span></th></tr></thead><tbody id="subject-table-body"></tbody></table></div>
+              <div id="subject-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-journal-bookmark"></i></div><h3>No subjects found</h3><p>There are no curriculum subjects matching these filters.</p></div>
+            </section>
+          </section>
+
+          <section id="page-sections" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">STUDENT GROUPS</span><h1>Sections</h1><p>Manage section names, year levels, capacity, and semester.</p></div>
+              <div class="d-flex flex-wrap gap-2">
+                <button id="create-section-button" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Create section</button>
+                <button id="sections-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+              </div>
+            </div>
+            <section class="content-card table-card">
+              <div class="table-toolbar"><div><h2>Student sections</h2><p id="section-result-count">Loading sections</p></div></div>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Section name</th><th>Year level</th><th>Capacity</th><th>Semester</th><th>Created</th><th>Actions</th></tr></thead><tbody id="section-table-body"></tbody></table></div>
+              <div id="section-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-diagram-3"></i></div><h3>No sections found</h3><p>Create a student section to get started.</p></div>
+            </section>
+          </section>
+
+          <section id="page-class-scheduling" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">CLASS SCHEDULING</span><h1 id="class-scheduling-title">Class scheduling</h1><p id="class-scheduling-description">Assign an existing section, subject, instructor, room, and meeting time.</p></div>
+              <div class="d-flex flex-wrap gap-2">
+                <button id="create-class-schedule-button" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Create schedule</button>
+                <button id="class-schedules-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+              </div>
+            </div>
+            <section class="content-card table-card">
+              <div class="table-toolbar"><div><h2>Schedules</h2><p id="class-schedule-result-count">Loading schedules</p></div></div>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Section</th><th>Subject</th><th id="class-schedule-instructor-heading">Instructor</th><th>Days</th><th>Time</th><th>Room</th><th>Semester</th><th id="class-schedule-actions-heading">Actions</th></tr></thead><tbody id="class-schedule-table-body"></tbody></table></div>
+              <div id="class-schedule-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-calendar-week"></i></div><h3 id="class-schedule-empty-title">No schedules found</h3><p id="class-schedule-empty-description">Create a schedule to assign a subject and instructor to an existing section.</p></div>
+            </section>
+          </section>
+
+          <section id="page-enrollment-config" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">ENROLLMENT CONTROLS</span><h1>Enrollment configuration</h1><p>Set the active academic term and the enrollment opening and closing dates.</p></div>
+              <button id="enrollment-config-refresh" class="btn btn-outline-secondary" type="button"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+            </div>
+            <section class="content-card enrollment-config-card">
+              <div class="card-heading"><div><h2>Active enrollment window</h2><p>These settings apply system-wide to the current enrollment period.</p></div><span class="metric-icon blue"><i class="bi bi-calendar2-range"></i></span></div>
+              <form id="enrollment-config-form">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label for="active-school-year" class="form-label">Active school year</label>
+                    <input id="active-school-year" class="form-control" type="text" pattern="[0-9]{4}-[0-9]{4}" minlength="9" maxlength="9" placeholder="2026-2027" aria-describedby="active-school-year-help" required>
+                    <div id="active-school-year-help" class="form-text">Enter the academic year as YYYY-YYYY, for example 2026-2027.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="active-semester" class="form-label">Active semester</label>
+                    <select id="active-semester" class="form-select" required>
+                      <option value="1">First semester</option>
+                      <option value="2">Second semester</option>
+                      <option value="3">Midyear</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="enrollment-start" class="form-label">Enrollment opens (Philippine time)</label>
+                    <input id="enrollment-start" class="form-control" type="datetime-local" step="1" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="enrollment-end" class="form-label">Enrollment closes (Philippine time)</label>
+                    <input id="enrollment-end" class="form-control" type="datetime-local" step="1" required>
+                  </div>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                  <button id="enrollment-config-submit" class="btn btn-primary" type="submit"><span class="button-label">Save configuration</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button>
+                  <span id="enrollment-config-updated" class="form-text"></span>
+                </div>
+              </form>
+            </section>
+          </section>
+
+          <section id="page-audit" class="page-section d-none">
+            <div class="page-heading">
+              <div><span class="eyebrow">SYSTEM TRANSPARENCY</span><h1>Audit activity</h1><p id="audit-description">Review administrator actions recorded by the system.</p></div>
+              <button id="audit-refresh" class="btn btn-outline-secondary"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+            </div>
+            <section class="content-card table-card">
+              <form id="audit-filter-form" class="table-toolbar audit-toolbar">
+                <div><h2>Activity log</h2><p id="audit-result-count">Most recent system activity</p></div>
+                <div class="audit-filters">
+                  <div id="audit-admin-filter-group"><label class="visually-hidden" for="audit-admin-filter">Filter by administrator ID</label><input id="audit-admin-filter" class="form-control" type="number" min="1" placeholder="Admin ID"></div>
+                  <label class="visually-hidden" for="audit-action-filter">Filter by exact action</label><input id="audit-action-filter" class="form-control" type="text" placeholder="Exact action">
+                  <button class="btn btn-primary" type="submit"><i class="bi bi-funnel me-1"></i>Filter</button>
+                </div>
+              </form>
+              <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Action</th><th>Actor</th><th>IP address</th><th>Date &amp; time</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+              <div id="audit-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-clock-history"></i></div><h3>No activity found</h3><p>Try changing or clearing your filters.</p></div>
+              <div class="table-pagination"><span id="audit-page-label">Showing latest records</span><div><button id="audit-prev" class="btn btn-sm btn-outline-secondary" disabled><i class="bi bi-chevron-left"></i> Previous</button><button id="audit-next" class="btn btn-sm btn-outline-secondary" disabled>Next <i class="bi bi-chevron-right"></i></button></div></div>
+            </section>
+          </section>
+
+          <section id="page-profile" class="page-section d-none">
+            <div class="page-heading"><div><span class="eyebrow">ACCOUNT SETTINGS</span><h1>My account</h1><p>View your administrator profile and update your password.</p></div></div>
+            <div class="row g-4">
+              <div class="col-12 col-lg-7"><section class="content-card profile-card"><div class="card-heading"><div><h2>Profile details</h2><p>Your account information</p></div></div>
+                <div class="profile-identity"><div id="profile-avatar" class="avatar avatar-large">A</div><div><h3 id="profile-full-name">Administrator</h3><span id="profile-role" class="badge rounded-pill text-bg-light">admin</span></div></div>
+                <dl class="profile-details"><div><dt>ID number</dt><dd id="profile-id-number">—</dd></div><div><dt>Email address</dt><dd id="profile-email">—</dd></div><div><dt>Account status</dt><dd id="profile-status">—</dd></div><div><dt>Administrator ID</dt><dd id="profile-id">—</dd></div><div><dt>Member since</dt><dd id="profile-created">—</dd></div></dl>
+              </section></div>
+              <div class="col-12 col-lg-5"><section class="content-card password-card"><div class="card-heading"><div><h2>Change password</h2><p>Choose a strong password for your account.</p></div></div>
+                <form id="password-form">
+                  <label for="current-password" class="form-label">Current password</label><input id="current-password" class="form-control mb-3" type="password" autocomplete="current-password" required>
+                  <label for="new-password" class="form-label">New password</label><input id="new-password" class="form-control mb-3" type="password" autocomplete="new-password" minlength="8" required>
+                  <label for="confirm-password" class="form-label">Confirm new password</label><input id="confirm-password" class="form-control mb-4" type="password" autocomplete="new-password" minlength="8" required>
+                  <button id="password-submit" class="btn btn-primary" type="submit"><span class="button-label">Update password</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button>
+                </form>
+              </section></div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="modal fade" id="edit-admin-modal" tabindex="-1" aria-labelledby="edit-admin-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <form id="edit-admin-form">
+          <div class="modal-header"><div><span id="admin-modal-eyebrow" class="eyebrow">ACCOUNT DETAILS</span><h2 class="modal-title fs-5" id="edit-admin-title">Edit administrator</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body"><div id="edit-admin-alert" class="alert d-none" role="alert"></div>
+            <input id="edit-admin-public-id" type="hidden">
+            <div class="row g-3">
+              <div class="col-sm-6"><label for="edit-fname" class="form-label">First name</label><input id="edit-fname" class="form-control" required></div>
+              <div class="col-sm-6"><label for="edit-lname" class="form-label">Last name</label><input id="edit-lname" class="form-control" required></div>
+              <div class="col-12"><label for="edit-mname" class="form-label">Middle name</label><input id="edit-mname" class="form-control"></div>
+              <div class="col-12"><label for="edit-id-number" class="form-label">ID number</label><input id="edit-id-number" class="form-control" autocomplete="off" required></div>
+              <div class="col-12"><label for="edit-email" class="form-label">Email address</label><input id="edit-email" class="form-control" type="email" required></div>
+              <div id="admin-password-field" class="col-12 d-none"><label for="edit-password" class="form-label">Initial password</label><input id="edit-password" class="form-control" type="password" autocomplete="new-password"><div class="form-text">The password can’t be changed from admin management after account creation.</div></div>
+              <div id="admin-active-field" class="col-12"><div class="form-check form-switch mt-1"><input id="edit-active" class="form-check-input" type="checkbox" role="switch"><label class="form-check-label" for="edit-active">Account is active</label></div></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button id="edit-admin-submit" class="btn btn-primary" type="submit"><span class="button-label">Save changes</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button></div>
+        </form>
+      </div></div>
+    </div>
+    <div class="modal fade" id="faculty-modal" tabindex="-1" aria-labelledby="faculty-modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <form id="faculty-form">
+          <div class="modal-header"><div><span id="faculty-modal-eyebrow" class="eyebrow">FACULTY ACCOUNT</span><h2 class="modal-title fs-5" id="faculty-modal-title">Add faculty</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body"><div id="faculty-form-alert" class="alert d-none" role="alert"></div>
+            <input id="faculty-public-id" type="hidden">
+            <div class="row g-3">
+              <div class="col-sm-6"><label for="faculty-fname" class="form-label">First name</label><input id="faculty-fname" class="form-control" required></div>
+              <div class="col-sm-6"><label for="faculty-lname" class="form-label">Last name</label><input id="faculty-lname" class="form-control" required></div>
+              <div class="col-12"><label for="faculty-mname" class="form-label">Middle name <span class="optional-label">Optional</span></label><input id="faculty-mname" class="form-control"></div>
+              <div class="col-12"><label for="faculty-id-number" class="form-label">ID number</label><input id="faculty-id-number" class="form-control" autocomplete="off" required></div>
+              <div class="col-12"><label for="faculty-email" class="form-label">Email address</label><input id="faculty-email" class="form-control" type="email" required></div>
+              <div class="col-12"><label for="faculty-role" class="form-label">Role</label><select id="faculty-role" class="form-select" required><option value="department_head">Department head</option><option value="instructor">Instructor</option></select></div>
+              <div id="faculty-password-field" class="col-12"><label for="faculty-password" class="form-label">Initial password</label><input id="faculty-password" class="form-control" type="password" autocomplete="new-password" required><div class="form-text">Passwords can’t be changed from faculty management after account creation.</div></div>
+              <div id="faculty-active-field" class="col-12 d-none"><div class="form-check form-switch mt-1"><input id="faculty-active" class="form-check-input" type="checkbox" role="switch"><label class="form-check-label" for="faculty-active">Account is active</label></div></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button id="faculty-submit" class="btn btn-primary" type="submit"><span class="button-label">Create account</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button></div>
+        </form>
+      </div></div>
+    </div>
+    <div class="modal fade" id="subject-modal" tabindex="-1" aria-labelledby="subject-modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+        <form id="subject-form">
+          <div class="modal-header"><div><span id="subject-modal-eyebrow" class="eyebrow">CURRICULUM SUBJECT</span><h2 class="modal-title fs-5" id="subject-modal-title">Add subject</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body"><div id="subject-form-alert" class="alert d-none" role="alert"></div>
+            <input id="subject-public-id" type="hidden">
+            <div class="row g-3">
+              <div class="col-sm-5"><label for="subject-course-no" class="form-label">Course number</label><input id="subject-course-no" class="form-control" maxlength="50" placeholder="IT 113" required></div>
+              <div class="col-sm-7"><label for="subject-title" class="form-label">Subject title</label><input id="subject-title" class="form-control" required></div>
+              <div class="col-sm-4"><label for="subject-lec-units" class="form-label">Lecture units</label><input id="subject-lec-units" class="form-control" type="number" min="0" step="1" value="0" required></div>
+              <div class="col-sm-4"><label for="subject-lab-units" class="form-label">Laboratory units</label><input id="subject-lab-units" class="form-control" type="number" min="0" step="1" value="0" required></div>
+              <div class="col-sm-4"><label for="subject-total-units" class="form-label">Total units</label><input id="subject-total-units" class="form-control" type="number" min="0" step="1" required></div>
+              <div class="col-12"><label for="subject-prerequisite" class="form-label">Prerequisite</label><input id="subject-prerequisite" class="form-control" value="None" required></div>
+              <div class="col-sm-6"><label for="subject-year" class="form-label">Year level</label><select id="subject-year" class="form-select" required><option value="1">First year</option><option value="2">Second year</option><option value="3">Third year</option><option value="4">Fourth year</option></select></div>
+              <div class="col-sm-6"><label for="subject-semester" class="form-label">Semester</label><select id="subject-semester" class="form-select" required><option value="1">First semester</option><option value="2">Second semester</option><option value="3">Midyear</option></select></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button id="subject-submit" class="btn btn-primary" type="submit"><span class="button-label">Create subject</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button></div>
+        </form>
+      </div></div>
+    </div>
+    <div class="modal fade" id="class-schedule-modal" tabindex="-1" aria-labelledby="class-schedule-modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+        <form id="class-schedule-form">
+          <input id="class-schedule-public-id" type="hidden">
+          <div class="modal-header"><div><span class="eyebrow">CLASS SCHEDULING</span><h2 class="modal-title fs-5" id="class-schedule-modal-title">Create schedule</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body"><div id="class-schedule-form-alert" class="alert d-none" role="alert"></div>
+            <div class="row g-3">
+              <div class="col-12"><label for="class-schedule-section" class="form-label">Section</label><select id="class-schedule-section" class="form-select" required><option value="">Select a section</option></select></div>
+              <div class="col-12"><label for="class-schedule-subject" class="form-label">Subject</label><select id="class-schedule-subject" class="form-select" required><option value="">Select a subject</option></select></div>
+              <div class="col-12"><label for="class-schedule-instructor" class="form-label">Instructor</label><select id="class-schedule-instructor" class="form-select" required><option value="">Select an instructor</option></select></div>
+              <div class="col-sm-6"><label for="class-schedule-room" class="form-label">Room</label><input id="class-schedule-room" class="form-control" maxlength="100" value="TBA" required></div>
+              <div class="col-12"><span class="form-label d-block">Days</span><div id="class-schedule-days" class="d-flex flex-wrap gap-3">
+                <div class="form-check"><input id="schedule-day-m" class="form-check-input" type="checkbox" value="M"><label class="form-check-label" for="schedule-day-m">Monday</label></div>
+                <div class="form-check"><input id="schedule-day-t" class="form-check-input" type="checkbox" value="T"><label class="form-check-label" for="schedule-day-t">Tuesday</label></div>
+                <div class="form-check"><input id="schedule-day-w" class="form-check-input" type="checkbox" value="W"><label class="form-check-label" for="schedule-day-w">Wednesday</label></div>
+                <div class="form-check"><input id="schedule-day-th" class="form-check-input" type="checkbox" value="TH"><label class="form-check-label" for="schedule-day-th">Thursday</label></div>
+                <div class="form-check"><input id="schedule-day-f" class="form-check-input" type="checkbox" value="F"><label class="form-check-label" for="schedule-day-f">Friday</label></div>
+                <div class="form-check"><input id="schedule-day-s" class="form-check-input" type="checkbox" value="S"><label class="form-check-label" for="schedule-day-s">Saturday</label></div>
+                <div class="form-check"><input id="schedule-day-su" class="form-check-input" type="checkbox" value="SU"><label class="form-check-label" for="schedule-day-su">Sunday</label></div>
+              </div></div>
+              <div class="col-sm-6"><label for="class-schedule-start-time" class="form-label">Start time</label><input id="class-schedule-start-time" class="form-control" type="time" required></div>
+              <div class="col-sm-6"><label for="class-schedule-end-time" class="form-label">End time</label><input id="class-schedule-end-time" class="form-control" type="time" required></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button id="class-schedule-submit" class="btn btn-primary" type="submit"><span class="button-label">Create schedule</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button></div>
+        </form>
+      </div></div>
+    </div>
+    <div class="modal fade" id="schedule-enrollments-modal" tabindex="-1" aria-labelledby="schedule-enrollments-title" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">
+        <div class="modal-header"><div><span class="eyebrow">MY CLASS</span><h2 class="modal-title fs-5" id="schedule-enrollments-title">Enrolled students</h2><p id="schedule-enrollments-subtitle" class="small text-secondary mb-0"></p></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body">
+          <div id="schedule-enrollments-alert" class="alert alert-danger d-none" role="alert"></div>
+          <div class="table-toolbar"><div><p id="schedule-enrollments-count" class="mb-0">Loading students…</p></div></div>
+          <div id="schedule-enrollments-table-wrap" class="table-responsive"><table class="table align-middle"><thead><tr><th>Student ID</th><th>Student name</th><th>Year level</th><th>Semester</th><th>Enrollment status</th></tr></thead><tbody id="schedule-enrollments-body"></tbody></table></div>
+          <div id="schedule-enrollments-empty" class="empty-state d-none"><div class="empty-icon"><i class="bi bi-people"></i></div><h3>No students enrolled</h3><p>There are no active enrollment records for this scheduled class.</p></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button></div>
+      </div></div>
+    </div>
+    <div class="modal fade" id="section-modal" tabindex="-1" aria-labelledby="section-modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <form id="section-form">
+          <input id="section-public-id" type="hidden">
+          <div class="modal-header"><div><span class="eyebrow">STUDENT GROUP</span><h2 class="modal-title fs-5" id="section-modal-title">Create section</h2></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body"><div id="section-form-alert" class="alert d-none" role="alert"></div>
+            <div class="row g-3">
+              <div class="col-12"><label for="section-name" class="form-label">Section name</label><input id="section-name" class="form-control" maxlength="50" placeholder="BSIT-1A" required></div>
+              <div class="col-sm-6"><label for="section-year-level" class="form-label">Year level</label><select id="section-year-level" class="form-select" required><option value="1">First year</option><option value="2">Second year</option><option value="3">Third year</option><option value="4">Fourth year</option></select></div>
+              <div class="col-sm-6"><label for="section-semester" class="form-label">Semester</label><select id="section-semester" class="form-select" required><option value="1">First semester</option><option value="2">Second semester</option><option value="3">Midyear</option></select></div>
+              <div class="col-12"><label for="section-capacity" class="form-label">Capacity</label><input id="section-capacity" class="form-control" type="number" min="1" step="1" value="40" required></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button id="section-submit" class="btn btn-primary" type="submit"><span class="button-label">Create section</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button></div>
+        </form>
+      </div></div>
+    </div>
+    <div id="toast-region" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a43">
+    <title>EVSU-OC | Student Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <main id="student-auth-screen" class="auth-shell">
+      <section class="auth-brand-panel">
+        <div class="brand-lockup">
+          <div class="brand-mark">E</div>
+          <div>
+            <div class="brand-name">EVSU-OC</div>
+            <div class="brand-caption">STUDENT ENROLLMENT SYSTEM</div>
+          </div>
+        </div>
+        <div class="auth-message">
+          <span class="eyebrow">STUDENT PORTAL</span>
+          <h1>Your next semester starts here.</h1>
+          <p>Sign in or create your student account to access the EVSU-OC enrollment system.</p>
+        </div>
+        <div class="brand-footer"><i class="bi bi-mortarboard"></i> Student enrollment access</div>
+      </section>
+      <section class="auth-form-panel">
+        <div class="auth-form-wrap">
+          <div class="mobile-brand brand-lockup">
+            <div class="brand-mark">E</div>
+            <div><div class="brand-name">EVSU-OC</div><div class="brand-caption">STUDENT ENROLLMENT SYSTEM</div></div>
+          </div>
+          <div id="student-auth-view">
+            <span class="eyebrow">STUDENT PORTAL</span>
+            <h2 id="student-auth-title">Student sign in</h2>
+            <p id="student-auth-description" class="muted-copy">Enter your student account credentials to continue.</p>
+            <div id="student-auth-alert" class="alert d-none" role="alert" aria-live="polite"></div>
+
+            <form id="student-login-form" novalidate>
+              <label for="student-login-email" class="form-label">Email address</label>
+              <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input id="student-login-email" class="form-control" type="email" autocomplete="username" placeholder="name@evsu.edu.ph" required>
+              </div>
+              <label for="student-login-password" class="form-label">Password</label>
+              <div class="input-group input-group-lg mb-4">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input id="student-login-password" class="form-control" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                <button class="input-group-text password-toggle" type="button" data-password-target="student-login-password" aria-label="Show password"><i class="bi bi-eye"></i></button>
+              </div>
+              <button id="student-login-submit" class="btn btn-primary btn-lg w-100" type="submit">
+                <span class="button-label">Student sign in</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span>
+              </button>
+            </form>
+
+            <form id="student-signup-form" class="d-none" novalidate>
+              <div class="row g-3 mb-3">
+                <div class="col-12"><label for="student-id-number" class="form-label">Student ID number</label><input id="student-id-number" class="form-control" type="text" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{4}-[0-9]{5}" placeholder="2020-12345" aria-describedby="student-id-help" autocomplete="off" required><div id="student-id-help" class="form-text">Enter 4 digits, a hyphen, then 5 digits (for example, 2020-12345).</div></div>
+                <div class="col-md-6"><label for="student-fname" class="form-label">First name</label><input id="student-fname" class="form-control" autocomplete="given-name" required></div>
+                <div class="col-md-6"><label for="student-lname" class="form-label">Last name</label><input id="student-lname" class="form-control" autocomplete="family-name" required></div>
+                <div class="col-12"><label for="student-mname" class="form-label">Middle name <span class="text-muted fw-normal">(optional)</span></label><input id="student-mname" class="form-control" autocomplete="additional-name"></div>
+                <div class="col-12"><label for="student-signup-email" class="form-label">Email address</label><input id="student-signup-email" class="form-control" type="email" autocomplete="email" placeholder="name@evsu.edu.ph" required></div>
+                <div class="col-md-6"><label for="student-year-level" class="form-label">Year level</label><select id="student-year-level" class="form-select" required><option value="1">First year</option><option value="2">Second year</option><option value="3">Third year</option><option value="4">Fourth year</option></select></div>
+                <div class="col-md-6"><label for="student-semester" class="form-label">Enrollment semester</label><select id="student-semester" class="form-select" required><option value="1">First semester</option><option value="2">Second semester</option><option value="3">Midyear</option></select></div>
+                <div class="col-12"><label for="student-signup-password" class="form-label">Password</label><input id="student-signup-password" class="form-control" type="password" autocomplete="new-password" minlength="8" maxlength="72" aria-describedby="student-password-help" required><div id="student-password-help" class="form-text">Use at least 8 characters. Passwords are limited to 72 UTF-8 bytes.</div></div>
+                <div class="col-12"><label for="student-confirm-password" class="form-label">Confirm password</label><input id="student-confirm-password" class="form-control" type="password" autocomplete="new-password" minlength="8" maxlength="72" required></div>
+              </div>
+              <button id="student-signup-submit" class="btn btn-primary btn-lg w-100" type="submit">
+                <span class="button-label">Create student account</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span>
+              </button>
+            </form>
+
+            <p class="auth-switch-copy">
+              <span id="student-switch-prompt">New student?</span>
+              <button id="student-switch-button" class="auth-switch-button" type="button">Create an account</button>
+            </p>
+          </div>
+
+        </div>
+      </section>
+    </main>
+    <div id="student-dashboard" class="app-shell student-dashboard d-none">
+      <aside id="student-sidebar" class="sidebar">
+        <a class="sidebar-brand" href="./student-login.html" aria-label="EVSU-OC student portal">
+          <span class="brand-mark">E</span>
+          <span><span class="brand-name">EVSU-OC</span><span class="brand-caption">STUDENT PORTAL</span></span>
+        </a>
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <nav class="sidebar-nav" aria-label="Student navigation">
+          <button class="nav-link active" type="button" data-dashboard-view="fhe" aria-current="page"><i class="bi bi-file-earmark-check"></i><span>FHE Form</span></button>
+          <button id="student-schedules-nav" class="nav-link" type="button" data-dashboard-view="schedules" disabled aria-disabled="true"><i class="bi bi-calendar-week"></i><span>Available Class Schedule</span><i class="bi bi-lock-fill student-nav-lock"></i></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-api-state"><span id="student-sidebar-api-dot" class="status-dot offline"></span><span id="sidebar-api-status">Checking API</span></div>
+          <button id="student-logout-button" class="logout-button" type="button"><i class="bi bi-box-arrow-left"></i><span>Sign out</span></button>
+        </div>
+      </aside>
+
+      <div class="main-column">
+        <header class="topbar">
+          <button id="student-sidebar-toggle" class="icon-button mobile-menu" type="button" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+          <div class="breadcrumb-line"><span>EVSU-OC</span><i class="bi bi-chevron-right"></i><strong id="student-page-breadcrumb">FHE Form</strong></div>
+          <div class="topbar-right">
+            <div class="api-indicator"><span id="student-topbar-api-dot" class="status-dot offline"></span><span id="topbar-api-status">Checking API</span></div>
+            <div class="topbar-divider"></div>
+            <div class="user-chip">
+              <div id="student-user-avatar" class="avatar">S</div>
+              <div class="user-chip-copy"><strong id="dashboard-student-name">Student</strong><span id="dashboard-student-id">—</span></div>
+            </div>
+          </div>
+        </header>
+
+        <main class="page-content student-page-content">
+          <div class="page-heading">
+            <div><span id="student-page-eyebrow" class="eyebrow">FHE FORM</span><h1 id="student-page-title">FHE Form</h1><p id="student-page-description">Submit and track your FHE form for the current academic term.</p></div>
+            <button id="student-dashboard-refresh" class="btn btn-outline-secondary" type="button"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button>
+          </div>
+          <div class="student-term-card">
+            <div class="student-term-icon"><i class="bi bi-calendar2-week"></i></div>
+            <div><span>Current enrollment term</span><strong id="dashboard-current-term">—</strong></div>
+            <span id="dashboard-fhe-badge" class="badge text-bg-secondary ms-auto">Checking</span>
+          </div>
+          <div id="student-dashboard-alert" class="alert d-none" role="alert" aria-live="polite"></div>
+
+          <section id="fhe-dashboard-view" class="student-dashboard-view" aria-labelledby="fhe-view-title">
+            <h2 id="fhe-view-title" class="visually-hidden">FHE Form</h2>
+            <div id="fhe-window-notice" class="alert alert-info d-none" role="status" aria-live="polite"></div>
+            <section id="fhe-upload-panel" class="content-card student-form-card">
+              <div class="card-heading"><div><h2>Upload your FHE Form</h2><p>Submit the form for your current academic term to view available schedules.</p></div><span class="metric-icon blue"><i class="bi bi-file-earmark-arrow-up"></i></span></div>
+              <form id="fhe-upload-form">
+                <label for="fhe-form-file" class="form-label">FHE form file</label>
+                <input id="fhe-form-file" name="fhe_form" class="form-control" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" required disabled>
+                <div class="form-text mb-3">Accepted: PDF, JPG/JPEG, PNG, or WebP. Maximum file size: 10 MB.</div>
+                <button id="fhe-upload-submit" class="btn btn-primary" type="submit" disabled><span class="button-label">Upload FHE form</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true"></span></button>
+              </form>
+            </section>
+
+            <section id="fhe-session-panel" class="content-card student-form-card d-none" aria-live="polite">
+              <div class="card-heading"><div><h2 id="fhe-session-title">Submission received</h2><p id="fhe-session-description" class="mb-0"></p></div><span id="fhe-session-icon" class="metric-icon amber"><i class="bi bi-hourglass-split"></i></span></div>
+              <div class="d-flex flex-wrap gap-2">
+                <a id="fhe-form-view-link" class="btn btn-outline-secondary btn-sm d-none" href="#" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-2"></i>View submitted form</a>
+                <button id="fhe-resubmit-button" class="btn btn-primary btn-sm d-none" type="button"><i class="bi bi-arrow-repeat me-2"></i>Upload a new form</button>
+              </div>
+              <div id="enrollment-unlocked-notice" class="alert alert-success mt-4 mb-0 d-none"><i class="bi bi-calendar-check me-2"></i>Your FHE form has been submitted. Current-term class schedules are available.</div>
+            </section>
+          </section>
+
+          <section id="available-schedules-panel" class="content-card table-card student-schedules-card student-dashboard-view d-none" aria-labelledby="schedule-view-title" aria-live="polite">
+            <div class="table-toolbar">
+              <div><h2 id="schedule-view-title">Available class schedules</h2><p>Schedules matching your year level and semester.</p></div>
+            </div>
+            <div id="available-schedules-empty" class="alert alert-info d-none m-3 mb-0" role="status">No class schedules are available for your current year level and semester yet.</div>
+            <div id="available-schedules-table-wrap" class="table-responsive d-none">
+              <table class="table table-hover align-middle mb-0">
+                <thead><tr><th scope="col">Section</th><th scope="col">Subject</th><th scope="col">Instructor</th><th scope="col">Days</th><th scope="col">Time</th><th scope="col">Room</th><th scope="col">Units</th></tr></thead>
+                <tbody id="available-schedules-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="./student-login.js"></script>
+  </body>
+</html>
